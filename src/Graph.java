@@ -1,4 +1,4 @@
-/**
+//**
  * Graph using adjacency matrix.
  */
 public class Graph {
