@@ -1,7 +1,7 @@
-import javax.swing.*;
 import java.awt.*;
 import java.util.HashSet;
 import java.util.Set;
+import javax.swing.*;
 
 public class GraphPanel extends JPanel {
 
@@ -65,13 +65,26 @@ public class GraphPanel extends JPanel {
     // ================= PATH =================
     private void drawPath(Graphics2D g) {
 
+        // Draw regular path edges (excluding closing edge)
         g.setColor(Color.BLUE);
         g.setStroke(new BasicStroke(4)); // thick path
 
+        // Draw all consecutive edges in the path (indices 0 to path.length - 2)
+        // This includes all edges except the closing edge
         for (int i = 0; i < path.length - 1; i++) {
             g.drawLine(
                 graph.getVertexX(path[i]), graph.getVertexY(path[i]),
                 graph.getVertexX(path[i + 1]), graph.getVertexY(path[i + 1])
+            );
+        }
+
+        // Draw closing edge if the path represents a full Hamiltonian cycle
+        if (path.length == graph.getVertexCount() && path.length > 0) {
+            int a = path[path.length - 1];
+            int b = path[0];
+            g.drawLine(
+                graph.getVertexX(a), graph.getVertexY(a),
+                graph.getVertexX(b), graph.getVertexY(b)
             );
         }
     }
